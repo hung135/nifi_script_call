@@ -1,0 +1,28 @@
+#This will setup Nifi and Tesseract on your MacBook for development 
+#https://docs.brew.sh/Installation
+mkdir homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew
+
+#Stolen from here
+#https://gist.github.com/fractaledmind/cd2fc4125bef57bcb3e2#file-install_tesseract-sh
+
+#install nifi
+brew install nifi
+
+# Install leptonica with TIFF support (and every other format, just in case)
+echo "Installing leptonica..."
+brew install --with-libtiff --with-openjpeg --with-giflib leptonica
+
+# Install Ghostscript
+echo "Installing ghostscript..."
+brew install gs
+
+# Install ImageMagick with TIFF and Ghostscript support
+echo "Installing imagemagick..."
+brew install --with-libtiff --with-ghostscript imagemagick
+
+# Install Tesseract devel with all languages
+echo "Installing tesseract..."
+brew install --all-languages tesseract
+nifi start
+
+open http://localhost:8080/nifi/
